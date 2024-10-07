@@ -9,8 +9,11 @@ st.title("🦜🔗 랭체인 챗봇")
 model_name = 'haiku'
 model_id = CHAT_MODEL_IDS[model_name]
 
-# ChatUI 인스턴스 생성
-chat_ui = ChatUI(model_id)
+# ChatUI 인스턴스가 한 번만 초기화되도록 설정
+if 'chat_ui' not in st.session_state:
+    st.session_state.chat_ui = ChatUI(model_id)  # ChatUI 인스턴스 생성 후 세션 상태에 저장
+
+chat_ui = st.session_state.chat_ui  # 세션 상태에서 ChatUI 인스턴스 가져오기
 
 # 대화 기록을 화면에 표시
 chat_ui.display_chat_history()
